@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<!--
+=========================================================================
+  比亚迪宋 PLUS DM-i 2026 款 · 新车到店品鉴会 H5 邀请函
+  单文件作品：一个 index.html 就是全部，无需联网、无外部依赖。
+-------------------------------------------------------------------------
+  ★ 怎么改内容（四种常见改动）
+
+  1) 门店名 / 地址 / 电话 / 活动日期 / 有效期 / 倒计时时间 / 地图链接
+     → 只改文件最底部 <script> 开头的 CONFIG 那一段，
+       改一处，全站所有出现的地方自动同步（不用一页页找）。
+
+  2) 某一页的文案（标题、亮点、流程、礼遇、试驾须知……）
+     → 用编辑器搜索页面注释，例如搜「第 3 页」直接跳到那一段改中文。
+
+  3) 换成门店真实二维码
+     → 搜索「二维码」，把那段 <svg>…</svg> 整个换成：
+       <img src="你的二维码图片地址" alt="门店企业微信二维码" style="width:100%">
+
+  4) 换成真实车图
+     → 搜索「车辆插画」，把那段 <svg>…</svg> 换成：
+       <img src="你的车图.jpg" alt="宋 PLUS DM-i 2026 款" style="width:100%;border-radius:16px">
+       （建议图片宽度 1200px 左右、横向，避免手机打开模糊）
+
+  提示：改完保存，手机上刷新链接即可看到新版。
+=========================================================================
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0F5132">
+<meta name="description" content="比亚迪宋 PLUS DM-i 2026 款新车到店品鉴会 · 诚邀莅临">
+<title>焕新登场 · 智享驾趣 | 宋 PLUS DM-i 2026 款到店品鉴会</title>
+<style>
+/* ============================================================
+   设计令牌 —— 绿色主题
+   ============================================================ */
+:root{
+  --g900:#07281C; --g800:#0B3D2E; --g700:#0F5132; --g600:#117D3B;
+  --g500:#17A34A; --g400:#29BA62; --g300:#4ED08A; --g200:#8FE7B6;
+  --mint100:#E4F7EB; --mint50:#F2FBF6;
+  --ink:#0D2119; --ink2:#24463A; --muted:#5F7D71;
+  --line:rgba(15,81,50,.12);
+  --card:#FFFFFF;
+  --shadow:0 10px 30px -12px rgba(11,61,46,.28);
+  --r:18px; --r-sm:12px;
+  --shell:460px;
+  --ease:cubic-bezier(.22,.68,.28,1);
+}
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  color:var(--ink);background:#042018;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input,select{font:inherit;color:inherit}
+
+/* ============================================================
+   外壳 / 滚动容器
+   ============================================================ */
+.stage{
+  height:100dvh;display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(120% 80% at 50% 0%, #0F5132 0%, #07281C 55%, #042018 100%);
+  padding:0;
+}
+#app{
+  position:relative;width:100%;max-width:var(--shell);
+  height:100dvh;max-height:100dvh;
+  overflow-y:auto;overflow-x:hidden;
+  scroll-snap-type:y mandatory;scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  background:var(--mint50);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.7);
+  scrollbar-width:none;
+}
+#app::-webkit-scrollbar{display:none}
+@media (min-width:700px) and (min-height:760px){
+  .stage{padding:24px}
+  #app{height:min(900px,calc(100dvh - 48px));max-height:none;border-radius:26px}
+}
+
+.page{
+  position:relative;height:100dvh;max-height:100dvh;
+  scroll-snap-align:start;scroll-snap-stop:always;
+  overflow:hidden;display:flex;flex-direction:column;
+  isolation:isolate;
+}
+@media (min-width:700px) and (min-height:760px){
+  .page{height:min(900px,calc(100dvh - 48px))}
+}
+.inner{
+  position:relative;z-index:3;flex:1;min-height:0;
+  display:flex;flex-direction:column;
+  padding:calc(env(safe-area-inset-top) + 26px) 22px calc(env(safe-area-inset-bottom) + 26px);
+  overflow-y:auto;scrollbar-width:none;
+}
+.inner::-webkit-scrollbar{display:none}
+
+/* 页面绿色底纹 */
+.page::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:linear-gradient(168deg,#F6FDF9 0%,#E6F8ED 38%,#CDEEDA 100%);
+}
+.page::after{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle, rgba(17,125,59,.15) 1px, transparent 1.5px),
+    radial-gradient(50% 32% at 110% 2%, rgba(41,186,98,.30), transparent 70%),
+    radial-gradient(54% 34% at -14% 94%, rgba(17,125,59,.24), transparent 72%),
+    radial-gradient(70% 26% at 50% 108%, rgba(15,81,50,.14), transparent 70%);
+  background-size:18px 18px,100% 100%,100% 100%,100% 100%;
+  background-repeat:repeat,no-repeat,no-repeat,no-repeat;
+  background-position:0 0,0 0,0 0,0 0;
+}
+.blob{position:absolute;z-index:1;pointer-events:none;opacity:.7}
+
+/* —— 装饰元素（叶子 / 圆环 / 波浪 / 能量节点）—— */
+.deco{position:absolute;z-index:1;pointer-events:none;color:#29BA62}
+.deco-soft{opacity:.16}
+.deco-mid{opacity:.26}
+.deco-ring{opacity:.30}
+@keyframes drift{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-9px) rotate(4deg)}}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+@keyframes sway{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
+.drift{animation:drift 7s ease-in-out infinite}
+.drift2{animation:drift 9s ease-in-out infinite reverse}
+.sway{animation:sway 8s ease-in-out infinite}
+.spin{animation:spinSlow 46s linear infinite}
+@media (prefers-reduced-motion:reduce){.drift,.drift2,.sway,.spin{animation:none}}
+
+/* ============================================================
+   顶部进度 + 悬浮按钮
+   ============================================================ */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;
+  max-width:var(--shell);margin:0 auto;background:rgba(15,81,50,.10)}
+.progress i{display:block;height:100%;width:0;border-radius:0 3px 3px 0;
+  background:linear-gradient(90deg,var(--g500),var(--g300));transition:width .35s var(--ease)}
+
+.music{
+  position:fixed;z-index:60;top:calc(env(safe-area-inset-top) + 14px);
+  right:max(14px, calc(50vw - var(--shell)/2 + 14px));
+  width:40px;height:40px;border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(10px);
+  border:1px solid var(--line);box-shadow:0 6px 18px -8px rgba(11,61,46,.4);
+  color:var(--g600);transition:transform .2s var(--ease)
+}
+.music:active{transform:scale(.92)}
+.music svg{width:19px;height:19px}
+.music.on{background:var(--g600);color:#fff;border-color:transparent}
+.music .bar{transform-origin:center;transition:opacity .2s,transform .2s}
+.music.on .bar{opacity:.35}
+
+.dots{
+  position:fixed;z-index:60;right:max(10px, calc(50vw - var(--shell)/2 + 10px));
+  top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:9px;
+}
+.dots button{width:7px;height:7px;border-radius:50%;background:rgba(15,81,50,.25);
+  transition:all .3s var(--ease)}
+.dots button.on{height:20px;border-radius:4px;background:var(--g500)}
+@media (max-width:360px){.dots{display:none}}
+
+.totop{
+  position:fixed;z-index:60;bottom:calc(env(safe-area-inset-bottom) + 20px);
+  right:max(14px, calc(50vw - var(--shell)/2 + 14px));
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(10px);
+  border:1px solid var(--line);color:var(--g600);
+  box-shadow:0 8px 22px -10px rgba(11,61,46,.5);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .3s var(--ease)
+}
+.totop.show{opacity:1;visibility:visible;transform:none}
+.totop svg{width:20px;height:20px}
+
+/* ============================================================
+   通用排版
+   ============================================================ */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+  font-size:11px;letter-spacing:.18em;color:var(--g600);
+  background:rgba(41,186,98,.10);border:1px solid rgba(41,186,98,.24);
+  padding:5px 11px;border-radius:999px;font-weight:600;
+}
+.eyebrow svg{width:12px;height:12px}
+h1,h2,h3,p{margin:0}
+.sec-title{font-size:24px;line-height:1.28;font-weight:800;letter-spacing:.01em;color:var(--g800)}
+.sec-title em{font-style:normal;color:var(--g500)}
+.sec-sub{font-size:12.5px;line-height:1.9;color:var(--muted);font-weight:500}
+.rule{width:40px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--g500),var(--g200))}
+
+.wm{
+  position:absolute;left:50%;transform:translateX(-50%);
+  font-size:clamp(54px,17vw,78px);font-weight:900;letter-spacing:.02em;
+  color:rgba(41,186,98,.10);z-index:1;pointer-events:none;
+  white-space:nowrap;user-select:none;
+}
+.tagline{
+  position:absolute;left:0;right:0;bottom:7px;z-index:2;text-align:center;
+  font-size:10px;letter-spacing:.22em;color:rgba(17,125,59,.42);font-weight:700;
+}
+
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.card::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--g400),var(--g600));opacity:.9}
+
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:700;color:var(--g700);
+  background:var(--mint100);border-radius:999px;padding:4px 10px;
+}
+
+/* 入场动画 */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* ============================================================
+   第 1 页 · 封面
+   ============================================================ */
+#p1 .inner{justify-content:space-between;padding-left:0;padding-right:0}
+.cover-top{padding:0 22px}
+.cover-mid{padding:0 22px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:linear-gradient(120deg,var(--g600),var(--g400));color:#fff;
+  font-size:11.5px;font-weight:800;letter-spacing:.1em;
+  padding:6px 13px;border-radius:999px;box-shadow:0 8px 20px -10px rgba(17,125,59,.9)
+}
+.badge span{width:5px;height:5px;border-radius:50%;background:#BDF5D5;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.5}}
+.cover-title{
+  font-size:clamp(30px,9.2vw,40px);line-height:1.14;font-weight:900;letter-spacing:.01em;
+  color:var(--g800);
+}
+.cover-title i{font-style:normal;display:block;
+  background:linear-gradient(96deg,var(--g600),var(--g400) 60%,var(--g300));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.cover-sub{font-size:13.5px;line-height:1.85;color:var(--ink2);font-weight:600;max-width:19em}
+.cover-sub b{color:var(--g600)}
+
+/* 车图 + 遮罩 */
+.car-wrap{position:relative;z-index:2;margin:2px 0 0}
+.car-wrap svg{width:100%;height:auto;filter:drop-shadow(0 22px 26px rgba(11,61,46,.22))}
+.mask{
+  position:relative;margin:-14px 0 0;padding:13px 22px 15px;
+  background:linear-gradient(100deg,rgba(7,40,28,.94),rgba(15,81,50,.86));
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;gap:12px;justify-content:space-between;
+}
+.mask p{color:#EAFBF1;font-size:13.5px;font-weight:700;line-height:1.6}
+.mask p b{color:#8FE7B6}
+.mask .go{
+  flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;
+  background:rgba(143,231,182,.18);color:#BDF5D5;border:1px solid rgba(143,231,182,.4)
+}
+.mask .go svg{width:16px;height:16px}
+.cover-foot{padding:14px 22px 0;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.shop{font-size:11.5px;color:var(--muted);line-height:1.7;font-weight:600}
+.shop b{display:block;font-size:12.5px;color:var(--g700)}
+.swipe{display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--g600);flex:none}
+.swipe span{font-size:10px;letter-spacing:.14em;font-weight:700;writing-mode:vertical-rl}
+.swipe svg{width:16px;height:16px;animation:up 1.6s infinite}
+@keyframes up{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-6px);opacity:1}}
+
+/* ============================================================
+   第 2 页 · 引言 / 倒计时
+   ============================================================ */
+#p2 .inner{justify-content:flex-start}
+.p2body{margin-top:auto;margin-bottom:auto}
+.countbox{
+  margin-top:18px;background:linear-gradient(135deg,var(--g700),var(--g600));
+  border-radius:var(--r);padding:15px 16px;color:#fff;box-shadow:0 16px 34px -18px rgba(11,61,46,.9)
+}
+.countbox .lb{font-size:11px;letter-spacing:.14em;opacity:.82;font-weight:700;margin-bottom:9px;
+  display:flex;align-items:center;gap:6px}
+.countbox .lb svg{width:13px;height:13px}
+.count{display:flex;align-items:center;gap:8px}
+.count b{
+  flex:1;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);
+  border-radius:11px;padding:7px 0;text-align:center;
+  font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.02em
+}
+.count i{font-style:normal;font-size:11px;opacity:.8;display:block;font-weight:600;margin-top:1px}
+.count .sp{opacity:.5;font-weight:800;font-size:15px;padding-bottom:12px}
+.gain{display:flex;flex-direction:column;gap:9px}
+.gain li{
+  display:flex;align-items:center;gap:10px;list-style:none;
+  font-size:12.5px;font-weight:600;color:var(--ink2)
+}
+.gain .n{
+  flex:none;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;
+  background:var(--mint100);color:var(--g600);font-size:11px;font-weight:800
+}
+.gain .n svg{width:13px;height:13px}
+ul.gain{padding:0;margin:0}
+.meta{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.meta div{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--ink2);
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);padding:9px 12px;font-weight:600}
+.meta svg{width:14px;height:14px;color:var(--g500);flex:none;margin-top:2px}
+.meta b{color:var(--g700)}
+
+/* ============================================================
+   第 3 页 · 亮点
+   ============================================================ */
+.hl{display:flex;flex-direction:column;gap:9px;margin-top:auto;margin-bottom:auto}
+.hl-item{
+  display:flex;gap:12px;align-items:center;
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:11px 13px;box-shadow:0 6px 18px -14px rgba(11,61,46,.7);
+  position:relative;overflow:hidden
+}
+.hl-item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--g400),var(--g600))}
+.hl-ico{
+  flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--mint100),#D5F2E1);color:var(--g600)
+}
+.hl-ico svg{width:21px;height:21px}
+.hl-tx{min-width:0}
+.hl-tx h3{font-size:13.5px;font-weight:800;color:var(--g800);display:flex;align-items:center;gap:6px}
+.hl-tx h3 i{font-style:normal;font-size:9px;font-weight:800;color:#fff;background:var(--g400);
+  border-radius:5px;padding:1px 5px;letter-spacing:.04em}
+.hl-tx p{font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:2px;font-weight:500}
+.hl-note{font-size:10.5px;color:var(--muted);text-align:center;margin-top:2px;line-height:1.7}
+
+/* ============================================================
+   第 4 页 · 流程
+   ============================================================ */
+.tl{position:relative;padding-left:24px;margin-top:auto;margin-bottom:auto;display:flex;flex-direction:column;gap:11px}
+.tl::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(180deg,var(--g300),rgba(41,186,98,.15));border-radius:2px}
+.tl-item{position:relative}
+.tl-item::before{
+  content:"";position:absolute;left:-21px;top:6px;width:10px;height:10px;border-radius:50%;
+  background:#fff;border:2.5px solid var(--g400);box-shadow:0 0 0 3px rgba(41,186,98,.14)
+}
+.tl-time{font-size:11px;font-weight:800;color:var(--g600);font-variant-numeric:tabular-nums;letter-spacing:.03em}
+.tl-item h3{font-size:13px;font-weight:800;color:var(--g800);margin:2px 0 2px}
+.tl-item p{font-size:11.5px;color:var(--muted);line-height:1.6;font-weight:500}
+.tl-item p b{color:var(--g600);font-weight:700}
+.notice{
+  margin-top:12px;background:#FFF8E8;border:1px solid #F3DFB0;border-radius:var(--r-sm);
+  padding:10px 13px;font-size:11.5px;line-height:1.75;color:#7A5A15;font-weight:600
+}
+.notice b{color:#B8790A}
+.notice .hd{display:flex;align-items:center;gap:6px;font-weight:800;color:#8A6100;margin-bottom:3px}
+.notice .hd svg{width:14px;height:14px}
+
+/* ============================================================
+   第 5 页 · 礼遇
+   ============================================================ */
+.gifts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:auto;margin-bottom:auto}
+.gift{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:12px 11px;box-shadow:0 6px 18px -14px rgba(11,61,46,.7);position:relative
+}
+.gift:nth-child(5){grid-column:1 / -1}
+.gift .ic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--mint100),#D5F2E1);color:var(--g600);margin-bottom:8px}
+.gift .ic svg{width:18px;height:18px}
+.gift h3{font-size:13px;font-weight:800;color:var(--g800)}
+.gift p{font-size:11px;color:var(--muted);line-height:1.6;margin-top:3px;font-weight:500}
+.gift .hot{position:absolute;top:9px;right:9px;font-size:9px;font-weight:800;color:#fff;
+  background:linear-gradient(120deg,#F97316,#EF4444);border-radius:5px;padding:2px 6px}
+.valid{
+  margin-top:10px;display:flex;align-items:center;gap:8px;justify-content:center;
+  background:var(--mint100);border-radius:var(--r-sm);padding:8px 12px;
+  font-size:11.5px;font-weight:800;color:var(--g700)
+}
+.valid svg{width:14px;height:14px}
+.valid s{text-decoration:none;color:var(--g500)}
+.fine{font-size:9.5px;line-height:1.75;color:#93A8A0;text-align:center;margin-top:8px}
+
+/* ============================================================
+   第 6 页 · 表单
+   ============================================================ */
+.form{margin-top:auto;margin-bottom:auto;background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:15px 15px 16px;box-shadow:var(--shadow)}
+.fld{margin-bottom:10px}
+.fld label{display:block;font-size:11.5px;font-weight:800;color:var(--g800);margin-bottom:5px}
+.fld label s{text-decoration:none;color:#EF4444;margin-left:2px}
+.fld input,.fld select{
+  width:100%;height:42px;border-radius:var(--r-sm);border:1px solid var(--line);
+  background:var(--mint50);padding:0 12px;font-size:13px;font-weight:600;color:var(--ink);
+  outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none
+}
+.fld select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23117D3B' stroke-width='3' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat:no-repeat;background-position:right 12px center;background-size:13px;padding-right:32px}
+.fld input:focus,.fld select:focus{border-color:var(--g400);box-shadow:0 0 0 3px rgba(41,186,98,.16);background:#fff}
+.fld input::placeholder{color:#A9BDB4;font-weight:500}
+.radios{display:flex;gap:9px}
+.radios button{
+  flex:1;height:42px;border-radius:var(--r-sm);border:1px solid var(--line);
+  background:var(--mint50);font-size:13px;font-weight:700;color:var(--muted);
+  transition:all .2s var(--ease)
+}
+.radios button.on{background:linear-gradient(120deg,var(--g600),var(--g400));color:#fff;border-color:transparent;
+  box-shadow:0 8px 18px -10px rgba(17,125,59,.9)}
+.submit{
+  width:100%;height:48px;border-radius:var(--r-sm);margin-top:4px;
+  background:linear-gradient(120deg,var(--g700),var(--g500) 70%,var(--g400));
+  color:#fff;font-size:15px;font-weight:800;letter-spacing:.06em;
+  box-shadow:0 14px 28px -14px rgba(11,61,46,.95);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .2s var(--ease)
+}
+.submit:active{transform:scale(.975)}
+.submit svg{width:17px;height:17px}
+.privacy{font-size:10px;line-height:1.7;color:#93A8A0;text-align:center;margin-top:9px;
+  display:flex;gap:5px;justify-content:center;align-items:flex-start}
+.privacy svg{width:11px;height:11px;flex:none;margin-top:2px;color:var(--g400)}
+.quick{display:flex;gap:9px;margin-top:10px}
+.quick a{
+  flex:1;height:44px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;gap:7px;
+  font-size:12.5px;font-weight:800;text-decoration:none;
+  background:#fff;border:1px solid var(--line);color:var(--g700);
+  box-shadow:0 6px 18px -14px rgba(11,61,46,.8)
+}
+.quick a:first-child{background:linear-gradient(120deg,var(--g700),var(--g500));color:#fff;border-color:transparent}
+.quick svg{width:15px;height:15px}
+
+/* 提交成功浮层 */
+.toast{
+  position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:26px;
+  background:rgba(4,32,24,.6);backdrop-filter:blur(4px);
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ease)
+}
+.toast.show{opacity:1;visibility:visible}
+.toast .box{
+  width:100%;max-width:320px;background:#fff;border-radius:20px;padding:24px 20px 18px;text-align:center;
+  transform:translateY(14px) scale(.97);transition:transform .35s var(--ease)
+}
+.toast.show .box{transform:none}
+.toast .ok{width:56px;height:56px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--g500),var(--g300));color:#fff}
+.toast .ok svg{width:26px;height:26px}
+.toast h3{font-size:17px;font-weight:800;color:var(--g800)}
+.toast p{font-size:12px;line-height:1.8;color:var(--muted);margin-top:7px;font-weight:500}
+.toast b{color:var(--g600)}
+.toast .close{margin-top:16px;width:100%;height:42px;border-radius:var(--r-sm);color:#fff;font-weight:800;
+  background:linear-gradient(120deg,var(--g700),var(--g500));font-size:13.5px}
+
+/* ============================================================
+   第 7 页 · 门店 / 尾页
+   ============================================================ */
+.store{margin-top:auto;margin-bottom:auto;display:flex;flex-direction:column;gap:11px}
+.front{
+  position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);
+  box-shadow:var(--shadow);background:#fff
+}
+.front svg{width:100%;height:auto;display:block}
+.qr-row{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);
+  border-radius:var(--r);padding:13px;box-shadow:var(--shadow)}
+.qr{
+  flex:none;position:relative;width:106px;height:106px;border-radius:12px;
+  background:#fff;border:1px solid var(--line);padding:3px;overflow:hidden;
+  box-shadow:0 8px 20px -12px rgba(11,61,46,.75);
+  transition:transform .2s var(--ease)
+}
+.qr:active{transform:scale(.94)}
+.qr img{width:100%;height:100%;object-fit:contain;display:block;border-radius:9px}
+.qr-zoom{
+  position:absolute;left:0;right:0;bottom:0;padding:3px 0 4px;
+  font-size:9px;font-weight:800;color:#fff;text-align:center;letter-spacing:.05em;
+  background:linear-gradient(180deg,rgba(11,61,46,0),rgba(11,61,46,.86))
+}
+/* 二维码放大弹层 */
+.qrbox .box{max-width:330px;padding:20px 20px 16px}
+.qrbox img{width:min(74vw,250px);height:auto;margin:0 auto;display:block;
+  border-radius:10px;border:1px solid var(--line)}
+.qrbox h3{font-size:16px;font-weight:800;color:var(--g800);margin-top:12px}
+.qrbox p{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.75;font-weight:500}
+.qr-tx h3{font-size:13px;font-weight:800;color:var(--g800)}
+.qr-tx p{font-size:11px;color:var(--muted);line-height:1.7;margin-top:4px;font-weight:500}
+.info{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;box-shadow:var(--shadow)}
+.info div{display:flex;gap:10px;align-items:flex-start;font-size:12px;font-weight:600;color:var(--ink2);padding:6px 0}
+.info div + div{border-top:1px dashed var(--line)}
+.info svg{width:15px;height:15px;color:var(--g500);flex:none;margin-top:1px}
+.info b{color:var(--g700)}
+.slogan{
+  text-align:center;font-size:20px;font-weight:900;letter-spacing:.06em;
+  background:linear-gradient(96deg,var(--g600),var(--g300));
+  -webkit-background-clip:text;background-clip:text;color:transparent;padding:4px 0 0
+}
+.share{
+  margin-top:10px;width:100%;height:44px;border-radius:var(--r-sm);
+  border:1px dashed rgba(41,186,98,.55);background:rgba(41,186,98,.07);
+  color:var(--g700);font-size:12.5px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;gap:7px
+}
+.share svg{width:15px;height:15px}
+.copyright{text-align:center;font-size:9.5px;color:#A9BDB4;line-height:1.8;margin-top:10px}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     背景装饰图形库：下面每页用 <use href="#图形名"> 调用，
+     想加/减装饰只要在各页里增删对应的 <svg class="deco">…</svg> 即可。
+     ============================================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- 叶子 -->
+    <symbol id="d-leaf" viewBox="0 0 100 100">
+      <path fill="currentColor" d="M50 4C26 26 12 48 12 66a38 38 0 0 0 76 0C88 48 74 26 50 4z"/>
+      <path fill="none" stroke="#fff" stroke-width="3" d="M50 22v62M50 44l-16-12M50 44l16-12M50 66l-18-13M50 66l18-13"/>
+    </symbol>
+    <!-- 同心圆环 -->
+    <symbol id="d-ring" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="4 8"/>
+      <circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".7"/>
+      <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".45"/>
+    </symbol>
+    <!-- 波浪线 -->
+    <symbol id="d-wave" viewBox="0 0 240 40">
+      <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            d="M2 26c20-20 40 12 60-2s40-22 60 0 40 16 60-6 40-4 54 6"/>
+      <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" opacity=".55"
+            d="M2 36c20-16 40 10 60-2s40-18 60 2 40 12 60-6 40-2 54 4"/>
+    </symbol>
+    <!-- 能量节点（新能源科技感） -->
+    <symbol id="d-node" viewBox="0 0 140 120">
+      <path fill="none" stroke="currentColor" stroke-width="1.6" opacity=".75"
+            d="M10 100 44 62 84 78 118 26M44 62 60 20M84 78 118 92"/>
+      <g fill="currentColor">
+        <circle cx="10" cy="100" r="4"/><circle cx="44" cy="62" r="5.5"/>
+        <circle cx="84" cy="78" r="4.5"/><circle cx="118" cy="26" r="4"/>
+        <circle cx="60" cy="20" r="3.5"/><circle cx="118" cy="92" r="3.5"/>
+      </g>
+    </symbol>
+    <!-- 叶片枝（角落点缀） -->
+    <symbol id="d-branch" viewBox="0 0 120 120">
+      <path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+            d="M8 112C30 84 58 58 100 40"/>
+      <g fill="currentColor">
+        <ellipse cx="34" cy="82" rx="15" ry="8" transform="rotate(-40 34 82)"/>
+        <ellipse cx="56" cy="60" rx="15" ry="8" transform="rotate(-34 56 60)"/>
+        <ellipse cx="80" cy="44" rx="14" ry="7.5" transform="rotate(-26 80 44)"/>
+        <ellipse cx="44" cy="96" rx="13" ry="7" transform="rotate(-52 44 96)"/>
+      </g>
+    </symbol>
+    <!-- 圆点矩阵 -->
+    <symbol id="d-dots" viewBox="0 0 100 100">
+      <g fill="currentColor">
+        <circle cx="10" cy="10" r="3"/><circle cx="40" cy="10" r="3"/><circle cx="70" cy="10" r="3"/>
+        <circle cx="10" cy="40" r="3"/><circle cx="40" cy="40" r="3"/><circle cx="70" cy="40" r="3"/>
+        <circle cx="10" cy="70" r="3"/><circle cx="40" cy="70" r="3"/><circle cx="70" cy="70" r="3"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="stage">
+<div id="app" aria-label="比亚迪宋 PLUS DM-i 2026 款到店品鉴会邀请函">
+
+  <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+
+  <!-- 背景音乐开关（可一键关闭） -->
+  <button class="music" id="music" aria-label="开启或关闭背景音乐" aria-pressed="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18V6l10-2v12"/>
+      <circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>
+      <line class="bar" x1="3" y1="3" x2="21" y2="21"/>
+    </svg>
+  </button>
+
+  <!-- 页码圆点 -->
+  <nav class="dots" id="dots" aria-label="页面导航"></nav>
+
+  <!-- 返回顶部 -->
+  <button class="totop" id="totop" aria-label="返回顶部">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <!-- ==========================================================
+       第 1 页 · 封面
+       ========================================================== -->
+  <section class="page" id="p1">
+    <svg class="blob" style="top:-40px;left:-60px;width:230px" viewBox="0 0 200 200" aria-hidden="true">
+      <path fill="rgba(41,186,98,.22)" d="M46-8C72-6 96 12 104 38s-4 52-22 72S38 148 12 146-34 122-40 96s6-52 24-72S20-10 46-8z"/>
+    </svg>
+    <svg class="blob" style="bottom:-30px;right:-70px;width:250px" viewBox="0 0 200 200" aria-hidden="true">
+      <circle cx="100" cy="100" r="78" fill="rgba(17,125,59,.10)"/>
+      <circle cx="100" cy="100" r="52" fill="none" stroke="rgba(41,186,98,.28)" stroke-width="1.5" stroke-dasharray="5 7"/>
+    </svg>
+    <div class="wm" style="top:14%">NEW ENERGY</div>
+
+    <!-- 封面装饰 -->
+    <svg class="deco deco-ring spin" style="top:11%;right:-52px;width:158px" aria-hidden="true"><use href="#d-ring"/></svg>
+    <svg class="deco deco-soft sway" style="bottom:19%;left:-46px;width:250px" aria-hidden="true"><use href="#d-wave"/></svg>
+    <svg class="deco deco-soft drift" style="bottom:6%;left:-26px;width:132px" aria-hidden="true"><use href="#d-branch"/></svg>
+    <svg class="deco deco-soft drift2" style="top:8%;left:14px;width:78px" aria-hidden="true"><use href="#d-dots"/></svg>
+
+    <div class="inner">
+      <header class="cover-top rv">
+        <div class="eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>
+          </svg>
+          <span data-cfg="shop"></span> · 新车到店
+        </div>
+      </header>
+
+      <div class="cover-mid">
+        <div class="badge rv"><span></span>2026 款新车 · 现已到店</div>
+        <h1 class="cover-title rv">焕新登场<i>智享驾趣</i></h1>
+        <p class="cover-sub rv">
+          比亚迪 <b>宋 PLUS DM-i 2026 款</b><br>
+          新车到店品鉴会 · 诚邀您亲临现场
+        </p>
+      </div>
+
+      <!-- 车辆插画（矢量绘制，任意屏幕清晰不变形） -->
+      <div class="car-wrap rv">
+        <svg viewBox="0 0 620 300" role="img" aria-label="宋 PLUS DM-i 2026 款 SUV 示意插画">
+          <defs>
+            <linearGradient id="body" x1="0" y1="0" x2="0.3" y2="1">
+              <stop offset="0" stop-color="#3FD27E"/>
+              <stop offset="0.42" stop-color="#17A34A"/>
+              <stop offset="1" stop-color="#0B3D2E"/>
+            </linearGradient>
+            <linearGradient id="glass" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0" stop-color="#F4FFFA"/>
+              <stop offset="1" stop-color="#A9E5C6"/>
+            </linearGradient>
+            <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#8FE7B6"/>
+              <stop offset="1" stop-color="#29BA62"/>
+            </linearGradient>
+          </defs>
+
+          <ellipse cx="310" cy="266" rx="232" ry="14" fill="#0B3D2E" opacity=".13"/>
+
+          <!-- 车身（大五座 SUV：高车顶、直立尾部、较高离地间隙） -->
+          <path d="M92 216 H96 A56 56 0 0 1 208 216 H396 A56 56 0 0 1 508 216 H552
+                   C570 216 580 206 580 194 L580 176
+                   C580 158 568 146 546 141 L500 131
+                   C478 104 448 84 410 80 L252 78
+                   C206 78 168 92 140 122 L112 130
+                   C86 138 68 148 60 166 L56 186
+                   C54 204 68 216 92 216 Z"
+                fill="url(#body)"/>
+
+          <!-- 玻璃（前挡风 + 侧窗） -->
+          <path d="M156 120 C176 96 206 88 240 88 L300 88 L300 120 Z" fill="url(#glass)" opacity=".92"/>
+          <path d="M314 88 L386 88 C414 92 438 106 458 128 L314 128 Z" fill="url(#glass)" opacity=".92"/>
+
+          <!-- 腰线 / 能量线 -->
+          <path d="M116 186 C220 172 380 170 512 162" fill="none" stroke="#BDF5D5" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+          <path d="M307 90 V200" stroke="rgba(255,255,255,.3)" stroke-width="2.4" stroke-linecap="round"/>
+
+          <!-- 前大灯 -->
+          <path d="M516 146 q34 4 46 15 l-12 7 q-18 -10 -38 -12 z" fill="#F4FFFA" opacity=".95"/>
+          <!-- 尾灯 -->
+          <path d="M60 166 q-6 12 -2 24 l14 -3 q-4 -12 2 -21 z" fill="#8FE7B6" opacity=".9"/>
+          <!-- 充电标识 -->
+          <circle cx="140" cy="150" r="9" fill="none" stroke="#BDF5D5" stroke-width="2.2" opacity=".85"/>
+          <path d="M141 145l-4 6h3.4l-1 5 4.4-6.4h-3.4z" fill="#BDF5D5"/>
+
+          <!-- 车轮 -->
+          <g>
+            <circle cx="152" cy="216" r="46" fill="#07281C"/>
+            <circle cx="152" cy="216" r="30" fill="url(#rim)"/>
+            <circle cx="152" cy="216" r="11" fill="#EAFBF1"/>
+            <g stroke="#0B3D2E" stroke-width="4" stroke-linecap="round" opacity=".55">
+              <path d="M152 190v12M170 203l-8 6M170 229l-8-6M152 230v11M134 229l8-6M134 203l8 6"/>
+            </g>
+          </g>
+          <g>
+            <circle cx="452" cy="216" r="46" fill="#07281C"/>
+            <circle cx="452" cy="216" r="30" fill="url(#rim)"/>
+            <circle cx="452" cy="216" r="11" fill="#EAFBF1"/>
+            <g stroke="#0B3D2E" stroke-width="4" stroke-linecap="round" opacity=".55">
+              <path d="M452 190v12M470 203l-8 6M470 229l-8-6M452 230v11M434 229l8-6M434 203l8 6"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 文字遮罩条：文字不压在车身上，保证小屏可读 -->
+      <div class="mask rv">
+        <p>新车现已到店　<b>诚邀您到店品鉴试驾</b></p>
+        <span class="go">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </span>
+      </div>
+
+      <footer class="cover-foot">
+        <div class="shop">
+          <b data-cfg="shop"></b>
+          品鉴时间 <span data-cfg="eventDateShort"></span> <span data-cfg="eventStart"></span> 起 · 展厅实车展出
+        </div>
+        <div class="swipe">
+          <span>上滑了解更多</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+          </svg>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       第 2 页 · 活动引言
+       ========================================================== -->
+  <section class="page" id="p2">
+    <svg class="blob" style="top:12%;right:-90px;width:260px" viewBox="0 0 200 200" aria-hidden="true">
+      <circle cx="100" cy="100" r="80" fill="rgba(41,186,98,.13)"/>
+    </svg>
+    <div class="wm" style="bottom:12%">BYD</div>
+    <span class="tagline">｛新能源｝驾驭未来</span>
+
+    <!-- 引言页装饰 -->
+    <svg class="deco deco-ring spin" style="top:34%;left:-64px;width:172px" aria-hidden="true"><use href="#d-ring"/></svg>
+    <svg class="deco deco-soft drift" style="top:12%;right:-18px;width:104px" aria-hidden="true">
+      <use href="#d-leaf"/></svg>
+    <svg class="deco deco-soft sway" style="bottom:30%;right:-52px;width:230px" aria-hidden="true"><use href="#d-wave"/></svg>
+    <svg class="deco deco-soft drift2" style="top:22%;right:8px;width:120px" aria-hidden="true"><use href="#d-node"/></svg>
+
+    <div class="inner">
+      <div class="rv" style="display:flex;flex-direction:column;gap:10px">
+        <span class="eyebrow" style="align-self:flex-start">活动引言</span>
+        <h2 class="sec-title">新车重磅登陆<em>抢先体验</em></h2>
+        <div class="rule"></div>
+      </div>
+
+      <div class="p2body">
+      <div class="rv" style="margin-top:14px;display:flex;flex-direction:column;gap:8px">
+        <p class="sec-sub">全新宋 PLUS DM-i 2026 款，实车已到店。</p>
+        <p class="sec-sub">近距离感受外观与内饰，现场可预约 <b style="color:var(--g600)">静态品鉴 + 道路试驾</b>。</p>
+        <p class="sec-sub">优先体验新车，先人一步。</p>
+      </div>
+
+      <div class="card rv" style="margin-top:14px;padding:12px 14px">
+        <p style="font-size:11.5px;font-weight:800;color:var(--g700);margin-bottom:8px">您到店可以获得</p>
+        <ul class="gain">
+          <li><span class="n">01</span>一次专属静态品鉴，坐进车内细细看</li>
+          <li><span class="n">02</span>一次道路试驾机会，亲自开一段</li>
+          <li><span class="n">03</span>一份到店签到礼，到场即领</li>
+        </ul>
+      </div>
+
+      <div class="meta rv">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+          </svg>
+          <span>活动时间　<b><span data-cfg="eventDate"></span> <span data-cfg="eventTime"></span></b></span>
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/>
+          </svg>
+          <span>活动地点　<b data-cfg="addressFull"></b></span>
+        </div>
+      </div>
+
+      <!-- 倒计时 -->
+      <div class="countbox rv">
+        <div class="lb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>
+          </svg>
+          距离活动开始还有
+        </div>
+        <div class="count" id="count">
+          <b><span data-d>00</span><i>天</i></b><span class="sp">:</span>
+          <b><span data-h>00</span><i>时</i></b><span class="sp">:</span>
+          <b><span data-m>00</span><i>分</i></b><span class="sp">:</span>
+          <b><span data-s>00</span><i>秒</i></b>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       第 3 页 · 车型亮点
+       ========================================================== -->
+  <section class="page" id="p3">
+    <svg class="blob" style="top:-50px;right:-70px;width:240px" viewBox="0 0 200 200" aria-hidden="true">
+      <path fill="rgba(41,186,98,.16)" d="M46-8C72-6 96 12 104 38s-4 52-22 72S38 148 12 146-34 122-40 96s6-52 24-72S20-10 46-8z"/>
+    </svg>
+    <div class="wm" style="top:26%">SUMMER</div>
+    <span class="tagline">｛新能源｝驾驭未来</span>
+
+    <!-- 亮点页装饰 -->
+    <svg class="deco deco-ring spin" style="bottom:12%;right:-58px;width:164px" aria-hidden="true"><use href="#d-ring"/></svg>
+    <svg class="deco deco-soft drift" style="top:9%;left:-24px;width:126px" aria-hidden="true"><use href="#d-branch"/></svg>
+    <svg class="deco deco-soft sway" style="top:20%;left:-48px;width:226px" aria-hidden="true"><use href="#d-wave"/></svg>
+    <svg class="deco deco-soft drift2" style="bottom:26%;left:10px;width:96px" aria-hidden="true"><use href="#d-leaf"/></svg>
+
+    <div class="inner">
+      <div class="rv" style="display:flex;flex-direction:column;gap:10px">
+        <span class="eyebrow" style="align-self:flex-start">车型亮点</span>
+        <h2 class="sec-title">为什么值得<em>来看一眼</em></h2>
+        <p class="sec-sub">抛开参数，只说您能感受到的 5 件事。</p>
+      </div>
+
+      <div class="hl">
+        <article class="hl-item rv">
+          <span class="hl-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 13l2-6h14l2 6v5h-3M3 18v-5M6 18h12"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+            </svg>
+          </span>
+          <div class="hl-tx">
+            <h3>外观 <i>2026 新款</i></h3>
+            <p>全新设计语言，线条更利落，动感车身一眼认出是新款。</p>
+          </div>
+        </article>
+
+        <article class="hl-item rv">
+          <span class="hl-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>
+            </svg>
+          </span>
+          <div class="hl-tx">
+            <h3>动力</h3>
+            <p>DM-i 超级混动：起步安静顺滑，越堵越省油，开着不心累。</p>
+          </div>
+        </article>
+
+        <article class="hl-item rv">
+          <span class="hl-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="16" height="10" rx="3"/><path d="M22 10v4"/><path d="M6 12h7"/>
+            </svg>
+          </span>
+          <div class="hl-tx">
+            <h3>续航</h3>
+            <p>可油可电，市区用电、长途用油，出门不用总惦记充电桩。</p>
+          </div>
+        </article>
+
+        <article class="hl-item rv">
+          <span class="hl-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4"/><path d="M8 11l2-2 2 2 3-3"/>
+            </svg>
+          </span>
+          <div class="hl-tx">
+            <h3>智能</h3>
+            <p>智能座舱 + 辅助驾驶，屏幕好上手，长辈也会用。</p>
+          </div>
+        </article>
+
+        <article class="hl-item rv">
+          <span class="hl-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 10V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"/><path d="M3 10h18v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 18v2M16 18v2"/>
+            </svg>
+          </span>
+          <div class="hl-tx">
+            <h3>空间</h3>
+            <p>大五座 SUV，后排宽敞、后备厢能装，全家出行都坐得舒服。</p>
+          </div>
+        </article>
+      </div>
+      <p class="hl-note">以上为亮点概述，具体配置与版本差异以实车及官方公布信息为准。</p>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       第 4 页 · 活动安排 & 流程
+       ========================================================== -->
+  <section class="page" id="p4">
+    <svg class="blob" style="bottom:-60px;left:-80px;width:250px" viewBox="0 0 200 200" aria-hidden="true">
+      <circle cx="100" cy="100" r="80" fill="rgba(17,125,59,.9)" opacity=".09"/>
+    </svg>
+    <div class="wm" style="top:20%">SUMMER</div>
+    <span class="tagline">｛新能源｝驾驭未来</span>
+
+    <!-- 流程页装饰 -->
+    <svg class="deco deco-soft drift" style="top:10%;right:-20px;width:118px" aria-hidden="true"><use href="#d-branch"/></svg>
+    <svg class="deco deco-soft sway" style="top:16%;right:-50px;width:236px" aria-hidden="true"><use href="#d-wave"/></svg>
+    <svg class="deco deco-ring spin" style="top:40%;right:-62px;width:150px" aria-hidden="true"><use href="#d-ring"/></svg>
+    <svg class="deco deco-soft drift2" style="bottom:16%;left:6px;width:104px" aria-hidden="true"><use href="#d-node"/></svg>
+
+    <div class="inner">
+      <div class="rv" style="display:flex;flex-direction:column;gap:10px">
+        <span class="eyebrow" style="align-self:flex-start">活动安排</span>
+        <h2 class="sec-title">到店之后<em>怎么走</em></h2>
+        <p class="sec-sub">10 月 18 日全天开放，随到随参与，按您的空闲时间来。</p>
+      </div>
+
+      <div class="tl">
+        <div class="tl-item rv">
+          <div class="tl-time">09:00 - 09:30</div>
+          <h3>客户签到 · 领取签到礼</h3>
+          <p>到场登记即可领取 <b>签到礼</b>，无需消费。</p>
+        </div>
+        <div class="tl-item rv">
+          <div class="tl-time">09:30 - 10:00</div>
+          <h3>新车产品讲解</h3>
+          <p>讲师面对面讲透 DM-i 与 2026 款的 <b>关键升级点</b>。</p>
+        </div>
+        <div class="tl-item rv">
+          <div class="tl-time">10:00 - 11:30</div>
+          <h3>静态品鉴 · 销售一对一介绍</h3>
+          <p>坐进车内细看内饰与空间，<b>一对一答疑</b>不被打扰。</p>
+        </div>
+        <div class="tl-item rv">
+          <div class="tl-time">11:30 - 16:30</div>
+          <h3>试乘试驾</h3>
+          <p>亲自开一段感受平顺静谧，需 <b>提前预约并携带驾照</b>。</p>
+        </div>
+        <div class="tl-item rv">
+          <div class="tl-time">全　天</div>
+          <h3>现场洽谈 · 订车咨询 · 礼品兑换</h3>
+          <p>配置、交付周期、用车成本与金融方案，<b>一次问清楚</b>。</p>
+        </div>
+      </div>
+
+      <div class="notice rv">
+        <div class="hd">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.4 17.5A2 2 0 0 0 4.1 20.5h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>
+          </svg>
+          试驾须知
+        </div>
+        <b>试驾必须携带本人有效驾驶证</b>，且需满足门店要求的驾龄；<b>试驾名额有限，建议提前报名预约。</b>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       第 5 页 · 到店礼遇
+       ========================================================== -->
+  <section class="page" id="p5">
+    <svg class="blob" style="top:-40px;left:-70px;width:235px" viewBox="0 0 200 200" aria-hidden="true">
+      <path fill="rgba(41,186,98,.18)" d="M46-8C72-6 96 12 104 38s-4 52-22 72S38 148 12 146-34 122-40 96s6-52 24-72S20-10 46-8z"/>
+    </svg>
+    <div class="wm" style="bottom:14%">SUMMER</div>
+    <span class="tagline">｛新能源｝驾驭未来</span>
+
+    <!-- 礼遇页装饰 -->
+    <svg class="deco deco-ring spin" style="bottom:22%;left:-60px;width:160px" aria-hidden="true"><use href="#d-ring"/></svg>
+    <svg class="deco deco-soft drift" style="top:10%;right:-22px;width:122px" aria-hidden="true"><use href="#d-branch"/></svg>
+    <svg class="deco deco-soft drift2" style="top:26%;left:8px;width:92px" aria-hidden="true"><use href="#d-leaf"/></svg>
+    <svg class="deco deco-soft sway" style="bottom:8%;left:-40px;width:240px" aria-hidden="true"><use href="#d-wave"/></svg>
+
+    <div class="inner">
+      <div class="rv" style="display:flex;flex-direction:column;gap:10px">
+        <span class="eyebrow" style="align-self:flex-start">到店礼遇</span>
+        <h2 class="sec-title">五重礼遇<em>只等您来</em></h2>
+        <p class="sec-sub">活动期间到店即享，越早到选择越多。</p>
+      </div>
+
+      <div class="gifts">
+        <article class="gift rv">
+          <span class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 12v8H4v-8M2 8h20v4H2zM12 8v12M12 8S9.5 3 7 4.2 8 8 12 8s7-2.6 5-3.8S12 8 12 8z"/>
+            </svg>
+          </span>
+          <h3>签到礼</h3>
+          <p>到店登记即领精美伴手礼，无门槛。</p>
+        </article>
+
+        <article class="gift rv">
+          <span class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>
+            </svg>
+          </span>
+          <h3>试驾礼</h3>
+          <p>完成试驾体验即赠专属试驾礼一份。</p>
+        </article>
+
+        <article class="gift rv">
+          <span class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7h18v13H3zM3 7l2-3h14l2 3M12 10v7"/><path d="M9 13h6"/>
+            </svg>
+          </span>
+          <span class="hot">限量</span>
+          <h3>订车礼</h3>
+          <p>现场订车享专属礼包，<b>限量 20 份</b>，先订先得。</p>
+        </article>
+
+        <article class="gift rv">
+          <span class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 8h11l-1.6-2.6A2 2 0 0 0 11.7 4.4L10 6"/><path d="M17 8l3 3v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7"/><circle cx="8.5" cy="16" r="1.6"/><circle cx="15.5" cy="16" r="1.6"/>
+            </svg>
+          </span>
+          <h3>置换礼</h3>
+          <p>旧车置换额外评估补贴，价格透明不压价。</p>
+        </article>
+
+        <article class="gift rv">
+          <span class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="6" width="20" height="13" rx="2.5"/><path d="M2 11h20"/><path d="M6 15h3"/>
+            </svg>
+          </span>
+          <h3>金融礼</h3>
+          <p>低息 / 长周期金融方案可选，现场测算月供。</p>
+        </article>
+      </div>
+
+      <div class="valid rv">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+        </svg>
+        活动有效期　<span data-cfg="validRange"></span>
+      </div>
+      <p class="fine">礼品数量有限，先到先得；各项礼遇活动规则以门店现场解释为准。</p>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       第 6 页 · 报名表单
+       ========================================================== -->
+  <section class="page" id="p6">
+    <svg class="blob" style="top:6%;right:-90px;width:250px" viewBox="0 0 200 200" aria-hidden="true">
+      <circle cx="100" cy="100" r="80" fill="rgba(41,186,98,.14)"/>
+    </svg>
+    <div class="wm" style="top:24%">SUMMER</div>
+    <span class="tagline">｛新能源｝驾驭未来</span>
+
+    <!-- 报名页装饰 -->
+    <svg class="deco deco-ring spin" style="bottom:10%;left:-64px;width:168px" aria-hidden="true"><use href="#d-ring"/></svg>
+    <svg class="deco deco-soft sway" style="top:14%;left:-46px;width:232px" aria-hidden="true"><use href="#d-wave"/></svg>
+    <svg class="deco deco-soft drift" style="top:9%;left:-18px;width:116px" aria-hidden="true"><use href="#d-branch"/></svg>
+    <svg class="deco deco-soft drift2" style="bottom:24%;right:12px;width:112px" aria-hidden="true"><use href="#d-node"/></svg>
+
+    <div class="inner">
+      <div class="rv" style="display:flex;flex-direction:column;gap:10px">
+        <span class="eyebrow" style="align-self:flex-start">在线报名</span>
+        <h2 class="sec-title">留个联系方式<em>我们等您</em></h2>
+        <p class="sec-sub">只需 4 项，10 秒填完，专属顾问为您预留名额。</p>
+      </div>
+
+      <form class="form rv" id="form" novalidate>
+        <div class="fld">
+          <label for="f-name">姓名</label>
+          <input id="f-name" name="name" type="text" placeholder="怎么称呼您？" autocomplete="name">
+        </div>
+        <div class="fld">
+          <label for="f-tel">联系电话<s>*</s></label>
+          <input id="f-tel" name="tel" type="tel" inputmode="numeric" placeholder="请输入 11 位手机号" autocomplete="tel" required>
+        </div>
+        <div class="fld">
+          <label>是否预约试驾</label>
+          <div class="radios" id="drive" role="radiogroup" aria-label="是否预约试驾">
+            <button type="button" data-v="是" class="on" role="radio" aria-checked="true">是，想试驾</button>
+            <button type="button" data-v="否" role="radio" aria-checked="false">否，先看车</button>
+          </div>
+        </div>
+        <div class="fld">
+          <label for="f-time">意向到店时间</label>
+          <select id="f-time" name="time">
+            <option>10 月 18 日 上午（09:00 - 12:00）</option>
+            <option>10 月 18 日 下午（12:00 - 17:00）</option>
+            <option>10 月 19 日</option>
+            <option>10 月 20 日</option>
+            <option>暂不确定，请顾问联系我</option>
+          </select>
+        </div>
+
+        <button class="submit" type="submit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/>
+          </svg>
+          提交报名 · 预约到店
+        </button>
+
+        <p class="privacy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10z"/>
+          </svg>
+          您的信息仅本店本次活动邀约使用，不会外泄，也不会用于其他用途。
+        </p>
+      </form>
+
+      <div class="quick rv">
+        <a href="tel:07978888888" id="callBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/>
+          </svg>
+          一键拨号咨询
+        </a>
+        <a href="https://uri.amap.com/marker?position=114.9351,25.8312&name=%E9%91%AB%E8%BF%AA%E6%AF%94%E4%BA%9A%E8%BF%AA4S%E5%BA%97" target="_blank" rel="noopener" id="navBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 11 21 3l-8 18-2.4-7.6z"/>
+          </svg>
+          一键导航到店
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       第 7 页 · 门店信息 & 尾页
+       ========================================================== -->
+  <section class="page" id="p7">
+    <svg class="blob" style="top:-50px;right:-80px;width:250px" viewBox="0 0 200 200" aria-hidden="true">
+      <path fill="rgba(41,186,98,.16)" d="M46-8C72-6 96 12 104 38s-4 52-22 72S38 148 12 146-34 122-40 96s6-52 24-72S20-10 46-8z"/>
+    </svg>
+    <div class="wm" style="bottom:16%">BYD</div>
+    <span class="tagline">｛新能源｝驾驭未来</span>
+
+    <!-- 尾页装饰 -->
+    <svg class="deco deco-ring spin" style="top:8%;left:-62px;width:166px" aria-hidden="true"><use href="#d-ring"/></svg>
+    <svg class="deco deco-soft drift" style="bottom:26%;left:-24px;width:124px" aria-hidden="true"><use href="#d-branch"/></svg>
+    <svg class="deco deco-soft sway" style="top:30%;right:-48px;width:238px" aria-hidden="true"><use href="#d-wave"/></svg>
+    <svg class="deco deco-soft drift2" style="bottom:9%;right:16px;width:88px" aria-hidden="true"><use href="#d-leaf"/></svg>
+
+    <div class="inner">
+      <div class="rv" style="display:flex;flex-direction:column;gap:10px">
+        <span class="eyebrow" style="align-self:flex-start">门店信息</span>
+        <h2 class="sec-title">期待您<em>莅临品鉴</em></h2>
+      </div>
+
+      <div class="store">
+        <!-- 展厅门头插画 -->
+        <div class="front rv">
+          <svg viewBox="0 0 460 190" role="img" aria-label="鑫迪比亚迪展厅门头示意">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#F2FBF6"/><stop offset="1" stop-color="#D9F2E4"/>
+              </linearGradient>
+              <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E4F7EB"/>
+              </linearGradient>
+              <linearGradient id="banner" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#0F5132"/><stop offset="1" stop-color="#17A34A"/>
+              </linearGradient>
+            </defs>
+            <rect width="460" height="190" fill="url(#sky)"/>
+            <circle cx="392" cy="34" r="20" fill="#8FE7B6" opacity=".45"/>
+            <ellipse cx="230" cy="176" rx="210" ry="12" fill="#0B3D2E" opacity=".10"/>
+            <!-- 建筑主体 -->
+            <rect x="44" y="66" width="372" height="104" rx="6" fill="url(#wall)"/>
+            <!-- 门头招牌 -->
+            <rect x="44" y="44" width="372" height="30" rx="6" fill="url(#banner)"/>
+            <text x="230" y="65" text-anchor="middle" font-size="15" font-weight="800"
+                  fill="#EAFBF1" font-family="-apple-system,PingFang SC,Microsoft YaHei,sans-serif"
+                  letter-spacing="2" data-cfg="shop"></text>
+            <!-- 玻璃幕墙 -->
+            <g fill="#BFE9D2" opacity=".8">
+              <rect x="60" y="86" width="66" height="70" rx="3"/>
+              <rect x="136" y="86" width="66" height="70" rx="3"/>
+              <rect x="258" y="86" width="66" height="70" rx="3"/>
+              <rect x="334" y="86" width="66" height="70" rx="3"/>
+            </g>
+            <!-- 店内车影 -->
+            <g opacity=".5" fill="#0F5132">
+              <path d="M76 141 h68 a4 4 0 0 0 4 -4 v-3 a4 4 0 0 0 -4 -4 h-5 l-8 -9 h-20 l-8 9 h-27 a4 4 0 0 0 -4 4 v3 a4 4 0 0 0 4 4 z"/>
+              <circle cx="94" cy="141" r="5.5"/><circle cx="126" cy="141" r="5.5"/>
+            </g>
+            <!-- 入口 -->
+            <rect x="212" y="86" width="36" height="70" rx="3" fill="#fff" stroke="#BFE9D2"/>
+            <path d="M230 96v50" stroke="#BFE9D2" stroke-width="2"/>
+            <!-- 旗帜 -->
+            <g stroke="#29BA62" stroke-width="2.4" stroke-linecap="round">
+              <path d="M32 132v-46"/><path d="M30 88h14l-4 8 4 8H30z" fill="#29BA62" stroke="none"/>
+            </g>
+            <g stroke="#29BA62" stroke-width="2.4" stroke-linecap="round">
+              <path d="M428 132v-46"/><path d="M426 88h14l-4 8 4 8h-14z" fill="#29BA62" stroke="none"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 二维码（门店企业微信）—— 想换二维码就把下面 img 的 src 换掉 -->
+        <div class="qr-row rv">
+          <button class="qr" type="button" id="qrBtn" aria-label="点击放大二维码">
+            <img id="qrImg" src="data:image/jpeg;base64,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" alt="门店企业微信二维码">
+            <span class="qr-zoom">点击放大</span>
+          </button>
+
+          <div class="qr-tx">
+            <h3>扫码添加门店企业微信</h3>
+            <p>专属顾问一对一报价、预约试驾、路线指引，随时问。</p>
+          </div>
+        </div>
+
+        <div class="info rv">
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21h18M4 21V9l8-6 8 6v12M9 21v-6h6v6"/>
+            </svg>
+            <span>门店　<b data-cfg="shop"></b></span>
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/>
+            </svg>
+            <span>地址　<b data-cfg="address"></b></span>
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/>
+            </svg>
+            <span>电话　<b data-cfg="phone"></b>（09:00 - 18:00）</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="slogan rv">期待您莅临品鉴！</p>
+
+      <button class="share rv" id="shareBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>
+        </svg>
+        分享给好友，一起去看新车
+      </button>
+
+      <p class="copyright">
+        本页面为教学演示作品，车型配置、活动时间与权益以门店现场公布为准。<br>
+        <span data-cfg="shop"></span> · 2026
+      </p>
+    </div>
+  </section>
+
+</div>
+</div>
+
+<!-- 提交成功浮层 -->
+<div class="toast" id="toast" role="dialog" aria-modal="true" aria-labelledby="toastTitle">
+  <div class="box">
+    <div class="ok">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6 9 17l-5-5"/>
+      </svg>
+    </div>
+    <h3 id="toastTitle">提交成功！</h3>
+    <p>已为您预留名额，<b>销售顾问会尽快与您联系</b>。<br>到店请携带本人有效驾驶证（如需试驾）。</p>
+    <button class="close" id="toastClose" type="button">知道了</button>
+  </div>
+</div>
+
+<!-- 二维码放大浮层（点第七页二维码弹出） -->
+<div class="toast qrbox" id="qrbox" role="dialog" aria-modal="true" aria-labelledby="qrboxTitle">
+  <div class="box">
+    <img id="qrBig" src="" alt="门店企业微信二维码">
+    <h3 id="qrboxTitle">微信扫一扫，添加门店企业微信</h3>
+    <p>长按保存图片，或用微信「扫一扫」识别<br>专属顾问为您报价、约试驾、指路。</p>
+    <button class="close" id="qrClose" type="button">关　闭</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ====================================================================
+     ★★★ 可编辑区：全站基本信息 ★★★
+     只改下面这几行，封面、引言页、礼遇页、报名页、门店页里所有
+     对应的文字和按钮链接都会自动同步，不用一页页去找。
+     ==================================================================== */
+  var CONFIG = {
+    // —— 门店信息 ——
+    shop:        '赣州鑫迪比亚迪 4S 店',
+    address:     '江西省赣州市章贡区开发区金岭西路 168 号',
+    addressFull: '赣州鑫迪比亚迪 4S 店 · 江西省赣州市章贡区开发区金岭西路 168 号',
+    phone:       '0797-88866699',      // 页面上显示的电话
+    phoneHref:   '07978886699',        // 点「一键拨号」实际拨出的号码（纯数字）
+
+    // —— 活动时间 ——
+    eventDate:      '2026 年 10 月 18 日（周日）',   // 引言页 / 门店页显示的完整日期
+    eventDateShort: '10 月 18 日',                   // 封面显示的短日期
+    eventStart:     '09:00',                         // 封面「品鉴时间 09:00 起」
+    eventTime:      '09:00 - 17:00',                 // 活动时段
+    validRange:     '2026.10.18 - 2026.10.20',       // 礼遇页「活动有效期」
+
+    // —— 倒计时 ——
+    countdownTarget: '2026-10-18T09:00:00+08:00',    // 倒计时截止时刻，改这里
+
+    // —— 一键导航 ——
+    // 默认按门店名搜索，开箱可用。
+    // 想要精确定位，把下面整行换成高德的坐标链接（经度在前，纬度在后）：
+    // 'https://uri.amap.com/marker?position=经度,纬度&name=赣州鑫迪比亚迪4S店'
+    mapUrl: 'https://uri.amap.com/search?keyword=%E8%B5%A3%E5%B7%9E%E9%91%AB%E8%BF%AA%E6%AF%94%E4%BA%9A%E8%BF%AA4S%E5%BA%97'
+  };
+
+  // 把 CONFIG 填进页面里所有 data-cfg 标记的位置
+  function fillConfig(){
+    document.querySelectorAll('[data-cfg]').forEach(function(el){
+      var k = el.getAttribute('data-cfg');
+      if (CONFIG[k] != null) el.textContent = CONFIG[k];
+    });
+    var c = document.getElementById('callBtn');
+    if (c) c.href = 'tel:' + CONFIG.phoneHref;
+    var n = document.getElementById('navBtn');
+    if (n) n.href = CONFIG.mapUrl;
+  }
+  fillConfig();
+
+  /* ==================== 可编辑区结束 ==================== */
+
+  var app    = document.getElementById('app');
+  var pages  = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  var dotsEl = document.getElementById('dots');
+  var bar    = document.getElementById('bar');
+  var totop  = document.getElementById('totop');
+
+  /* ---------- 1. 页码圆点 ---------- */
+  pages.forEach(function(p, i){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', '第 ' + (i + 1) + ' 页');
+    if (i === 0) b.className = 'on';
+    b.addEventListener('click', function(){
+      pages[i].scrollIntoView({behavior:'smooth', block:'start'});
+    });
+    dotsEl.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(dotsEl.children);
+
+  /* ---------- 2. 滚动进度 / 当前页 ---------- */
+  function onScroll(){
+    var max = app.scrollHeight - app.clientHeight;
+    var pct = max > 0 ? app.scrollTop / max : 0;
+    bar.style.width = (pct * 100) + '%';
+
+    var idx = Math.round(app.scrollTop / app.clientHeight);
+    idx = Math.max(0, Math.min(pages.length - 1, idx));
+    dots.forEach(function(d, i){ d.classList.toggle('on', i === idx); });
+
+    // 返回顶部按钮：仅在后两页出现
+    totop.classList.toggle('show', idx >= pages.length - 2);
+  }
+  app.addEventListener('scroll', onScroll, {passive:true});
+
+  totop.addEventListener('click', function(){
+    pages[0].scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  /* ---------- 3. 入场动画 ---------- */
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){
+          en.target.classList.add('in');
+          io.unobserve(en.target);
+        }
+      });
+    }, {root: app, threshold: 0.15});
+    document.querySelectorAll('.rv').forEach(function(el, i){
+      el.style.transitionDelay = (Math.min(i, 5) * 55) + 'ms';
+      io.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- 4. 倒计时 ---------- */
+  var TARGET = new Date(CONFIG.countdownTarget).getTime();
+  var cd = {
+    d: document.querySelector('#count [data-d]'),
+    h: document.querySelector('#count [data-h]'),
+    m: document.querySelector('#count [data-m]'),
+    s: document.querySelector('#count [data-s]')
+  };
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function tick(){
+    var left = TARGET - Date.now();
+    if (left < 0) left = 0;
+    var s = Math.floor(left / 1000);
+    cd.d.textContent = pad(Math.floor(s / 86400));
+    cd.h.textContent = pad(Math.floor(s % 86400 / 3600));
+    cd.m.textContent = pad(Math.floor(s % 3600 / 60));
+    cd.s.textContent = pad(s % 60);
+  }
+  if (cd.d){ tick(); setInterval(tick, 1000); }
+
+  /* ---------- 5. 背景音乐（可一键开启 / 关闭） ---------- */
+  /* 使用 Web Audio 合成一段极轻的绿色氛围音，无需外部音频文件，
+     默认关闭，用户点一下才播放，避免自动播放被拦截。          */
+  var musicBtn = document.getElementById('music');
+  var ac = null, master = null, playing = false, timer = null;
+  var SCALE = [261.63, 329.63, 392.00, 523.25, 659.25]; // C E G C E 五声音阶
+  var step = 0;
+
+  function ensureCtx(){
+    if (ac) return;
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    ac = new Ctx();
+    master = ac.createGain();
+    master.gain.value = 0;                 // 淡入
+    master.connect(ac.destination);
+  }
+  function voice(freq, when, dur){
+    var o = ac.createOscillator();
+    var g = ac.createGain();
+    o.type = 'sine';
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(0, when);
+    g.gain.linearRampToValueAtTime(0.16, when + 0.9);
+    g.gain.exponentialRampToValueAtTime(0.001, when + dur);
+    o.connect(g); g.connect(master);
+    o.start(when); o.stop(when + dur + 0.1);
+  }
+  function loop(){
+    if (!playing || !ac) return;
+    var f = SCALE[step % SCALE.length];
+    voice(f, ac.currentTime + 0.02, 3.6);
+    if (step % 2 === 0) voice(f / 2, ac.currentTime + 0.02, 4.4);
+    step++;
+    timer = setTimeout(loop, 2200);
+  }
+  function startMusic(){
+    ensureCtx();
+    if (!ac) return false;                 // 环境不支持则静默降级
+    if (ac.state === 'suspended') ac.resume();
+    playing = true;
+    master.gain.cancelScheduledValues(ac.currentTime);
+    master.gain.setValueAtTime(master.gain.value, ac.currentTime);
+    master.gain.linearRampToValueAtTime(0.5, ac.currentTime + 1.2);
+    loop();
+    return true;
+  }
+  function stopMusic(){
+    playing = false;
+    if (timer) { clearTimeout(timer); timer = null; }
+    if (ac && master){
+      master.gain.cancelScheduledValues(ac.currentTime);
+      master.gain.setValueAtTime(master.gain.value, ac.currentTime);
+      master.gain.linearRampToValueAtTime(0, ac.currentTime + 0.4);
+    }
+  }
+  musicBtn.addEventListener('click', function(){
+    if (!playing){
+      var ok = startMusic();
+      if (ok){ musicBtn.classList.add('on'); musicBtn.setAttribute('aria-pressed','true'); }
+      else { musicBtn.classList.add('on','unsupported'); }
+    } else {
+      stopMusic();
+      musicBtn.classList.remove('on');
+      musicBtn.setAttribute('aria-pressed','false');
+    }
+  });
+
+  /* ---------- 6. 表单 ---------- */
+  var form = document.getElementById('form');
+  var tel  = document.getElementById('f-tel');
+  var drive = document.getElementById('drive');
+  var driveVal = '是';
+  var toast = document.getElementById('toast');
+
+  drive.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-v]');
+    if (!b) return;
+    driveVal = b.getAttribute('data-v');
+    Array.prototype.forEach.call(drive.children, function(x){
+      var on = x === b;
+      x.classList.toggle('on', on);
+      x.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+  });
+
+  tel.addEventListener('input', function(){
+    tel.value = tel.value.replace(/\D/g, '').slice(0, 11);
+    tel.style.borderColor = '';
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = tel.value.trim();
+    if (!/^1[3-9]\d{9}$/.test(v)){
+      tel.style.borderColor = '#EF4444';
+      tel.focus();
+      return;
+    }
+    // 演示作品：此处可替换为真实的线索提交接口
+    var payload = {
+      name: document.getElementById('f-name').value.trim(),
+      tel: v,
+      drive: driveVal,
+      time: document.getElementById('f-time').value
+    };
+    console.log('[报名信息]', payload);
+
+    toast.classList.add('show');
+  });
+  document.getElementById('toastClose').addEventListener('click', function(){
+    toast.classList.remove('show');
+  });
+  toast.addEventListener('click', function(e){
+    if (e.target === toast) toast.classList.remove('show');
+  });
+
+  /* ---------- 7. 二维码点击放大 ---------- */
+  var qrBtn  = document.getElementById('qrBtn');
+  var qrImg  = document.getElementById('qrImg');
+  var qrbox  = document.getElementById('qrbox');
+  var qrBig  = document.getElementById('qrBig');
+  function closeQr(){ qrbox.classList.remove('show'); }
+  if (qrBtn && qrbox && qrBig){
+    qrBtn.addEventListener('click', function(){
+      qrBig.src = qrImg.src;          // 复用同一张图，不额外增加文件体积
+      qrbox.classList.add('show');
+    });
+    document.getElementById('qrClose').addEventListener('click', closeQr);
+    qrbox.addEventListener('click', function(e){ if (e.target === qrbox) closeQr(); });
+  }
+
+  /* ---------- 8. 分享引导 ---------- */
+  document.getElementById('shareBtn').addEventListener('click', function(){
+    var data = {title:'焕新登场 · 智享驾趣 — 宋 PLUS DM-i 2026 款到店品鉴会',
+                text:'10 月 18 日，赣州鑫迪比亚迪 4S 店，诚邀您到店品鉴试驾',
+                url: location.href};
+    if (navigator.share){
+      navigator.share(data).catch(function(){});
+    } else if (navigator.clipboard){
+      navigator.clipboard.writeText(data.title + ' ' + data.url).then(function(){
+        alert('链接已复制，粘贴给好友即可分享～');
+      }).catch(function(){
+        alert('请在浏览器右上角选择「分享」发送给好友～');
+      });
+    } else {
+      alert('请在浏览器右上角选择「分享」发送给好友～');
+    }
+  });
+
+  /* ---------- 9. 初始化 ---------- */
+  onScroll();
+  // 首屏动画
+  requestAnimationFrame(function(){
+    document.querySelectorAll('#p1 .rv').forEach(function(el){ el.classList.add('in'); });
+  });
+})();
+</script>
+</body>
+</html>
